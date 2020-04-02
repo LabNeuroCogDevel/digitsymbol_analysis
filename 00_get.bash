@@ -21,7 +21,7 @@ read.table('txt/all_long_raw.txt', header=T) %>%
           digit,symbol,answer,speed.ACC,speed.RT,
           mem,memsym,manswer,mtrace.ACC,mtrace.RT,mtrace.RESP) %>%
    tidyr::separate(id, c('vdate','id')) %>% 
-   filter(!is.na(symbol)) %>% 
+   filter(!is.na(symbol)|!is.na(memsym)) %>% 
    merge(db_query(\"select id,sex,dob from person natural join enroll where etype like 'LunaID'\"), all.x=T, by='id') %>%
    mutate(age = as.numeric(ymd(vdate) - ymd(dob))/365.25) %>%
    write.table(file='txt/all_long.txt',row.names=F)"
